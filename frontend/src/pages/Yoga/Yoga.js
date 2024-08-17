@@ -120,7 +120,21 @@ function Yoga() {
   const runMovenet = async () => {
     const detectorConfig = {modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER};
     const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig);
+
+    // RUN WITH THIS FOR NOW
     const poseClassifier = await tf.loadLayersModel('https://models.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
+
+
+    // const poseClassifier = await tf.loadLayersModel('/model_new.json'); ------------ Need to get this to work
+
+    // NOT WORKING, NEED TO FIX
+    // POSSIBLY DUE TO tfjs version issues, might need to downgrade
+    // !pip install tensorflowjs
+    // !pip install TensorFlow==2.15.0
+    // !pip install tensorflow-decision-forests==1.8.1
+    // https://stackoverflow.com/questions/78466700/an-inputlayer-should-be-passed-either-a-batchinputshape-or-an-inputshape
+
+
     const countAudio = new Audio(count)
     countAudio.loop = true
     interval = setInterval(() => { 
