@@ -47,7 +47,17 @@ export const poseInstructions = {
         "Move your hips toward the front of the room and your feet toward the back of the room to straighten the body. The correct alignment is with the hips over the shoulders and feet over the hips. Ask your teacher or a friend to help you determine if your legs are perpendicular to the floor.",
         "Stay in the pose for up to 10 breaths",
         'Source: verywellfit - https://www.verywellfit.com/shoulderstand-salamba-sarvangasana-3567115'
-    ]
+    ],
+    Single_Leg_Raise: [
+        "Raise One feet up with thigh parallel to the ground"
+
+    ],
+    Calf_Stretch: [
+        "Strech your calf, duh!",
+    ],
+    Side_Leg_Raise: [
+        "Raise your leg to the side, duh!",
+    ],
     
 }
 

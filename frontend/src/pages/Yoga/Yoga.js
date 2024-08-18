@@ -16,10 +16,11 @@ import { drawPoint, drawSegment } from '../../utils/helper'
 
 
 
+const ACCEPTANCE_THRESHOLD = 0.75
+
 let skeletonColor = 'rgb(255,255,255)'
 let poseList = [
-  'Tree', 'Chair', 'Cobra', 'Warrior', 'Dog',
-  'Shoulderstand', 'Traingle'
+  'Calf_Stretch', 'Chair', 'Cobra', 'Dog', 'Shoulderstand', 'Side_Leg_Raise', 'Single_Leg_Raise', 'Traingle', 'Tree', 'Warrior'
 ]
 
 let interval
@@ -60,14 +61,17 @@ function Yoga() {
   }, [currentPose])
 
   const CLASS_NO = {
-    Chair: 0,
-    Cobra: 1,
-    Dog: 2,
-    No_Pose: 3,
-    Shoulderstand: 4,
-    Traingle: 5,
-    Tree: 6,
-    Warrior: 7,
+    Calf_Stretch: 0,
+    Chair: 1,
+    Cobra: 2,
+    Dog: 3,
+    No_Pose: 4,
+    Shoulderstand: 5,
+    Side_Leg_Raise: 6,
+    Single_Leg_Raise: 7,
+    Traingle: 8,
+    Tree: 9,
+    Warrior: 10,
   }
 
   function get_center_point(landmarks, left_bodypart, right_bodypart) {
@@ -122,10 +126,10 @@ function Yoga() {
     const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet, detectorConfig);
 
     // RUN WITH THIS FOR NOW
-    const poseClassifier = await tf.loadLayersModel('https://models.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
+    // const poseClassifier = await tf.loadLayersModel('https://models.s3.jp-tok.cloud-object-storage.appdomain.cloud/model.json')
 
 
-    // const poseClassifier = await tf.loadLayersModel('/model_new.json'); ------------ Need to get this to work
+    const poseClassifier = await tf.loadLayersModel('/model.json'); // ------------ Need to get this to work
 
     // NOT WORKING, NEED TO FIX
     // POSSIBLY DUE TO tfjs version issues, might need to downgrade
@@ -185,10 +189,12 @@ function Yoga() {
         const processedInput = landmarks_to_embedding(input)
         const classification = poseClassifier.predict(processedInput)
 
+        console.log(classification, currentPose, CLASS_NO[currentPose])
+
         classification.array().then((data) => {         
           const classNo = CLASS_NO[currentPose]
           console.log(data[0][classNo])
-          if(data[0][classNo] > 0.97) {
+          if(data[0][classNo] > ACCEPTANCE_THRESHOLD) {
             
             if(!flag) {
               countAudio.play()

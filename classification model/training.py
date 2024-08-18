@@ -136,7 +136,7 @@ model.compile(
 
 # Add a checkpoint callback to store the checkpoint that has the highest
 # validation accuracy.
-checkpoint_path = "weights.best.hdf5.keras"
+checkpoint_path = "weights.best.hdf5"
 checkpoint = keras.callbacks.ModelCheckpoint(checkpoint_path,
                              monitor='val_accuracy',
                              verbose=1,
