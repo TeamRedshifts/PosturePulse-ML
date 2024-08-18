@@ -4,7 +4,7 @@ import os
 import cv2
 import numpy as np
 
-FOLDER_NAME = 'leg_side_lift'
+FOLDER_NAME = 'single_leg_raise'
 
 def flip_images(images_folder):
     for image_name in os.listdir(images_folder):
